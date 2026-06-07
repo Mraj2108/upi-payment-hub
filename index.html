@@ -1,0 +1,461 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Mritunjay Raj - Payment Hub</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Sora", sans-serif;
+        background: #0a0a14;
+        color: #fff;
+        min-height: 100vh;
+        padding: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6c63ff, #ff6b9d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 auto 15px;
+        box-shadow: 0 10px 30px rgba(108, 99, 255, 0.35);
+      }
+
+      .name {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #9ca3af;
+      }
+
+      .card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        min-height: 72px;
+        touch-action: manipulation;
+        animation: fadeUp 0.4s ease both;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        border-color: #6c63ff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .card:active {
+        transform: scale(0.98);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+
+      .info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .title {
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .desc {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 4px;
+      }
+
+      .arrow {
+        font-size: 24px;
+        color: #6c63ff;
+        flex-shrink: 0;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #6b7280;
+        padding: 10px;
+        line-height: 1.6;
+      }
+
+      /* Modal */
+
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        z-index: 99999;
+      }
+
+      .modal-content {
+        background: #111827;
+        width: 100%;
+        max-width: 420px;
+        padding: 25px;
+        border-radius: 24px;
+        text-align: center;
+        position: relative;
+        animation: popup 0.25s ease;
+      }
+
+      @keyframes popup {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .close {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      .modal h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .modal img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        background: #fff;
+        padding: 10px;
+        border-radius: 14px;
+        display: block;
+        margin: auto;
+      }
+
+      .scan {
+        margin-top: 15px;
+        font-size: 13px;
+        color: #9ca3af;
+        line-height: 1.6;
+      }
+
+      /* Mobile */
+
+      @media (max-width: 480px) {
+        body {
+          padding: 12px;
+          align-items: flex-start;
+        }
+
+        .avatar {
+          width: 75px;
+          height: 75px;
+          font-size: 30px;
+        }
+
+        .name {
+          font-size: 22px;
+        }
+
+        .card {
+          padding: 14px;
+          gap: 12px;
+        }
+
+        .icon {
+          width: 46px;
+          height: 46px;
+          font-size: 20px;
+        }
+
+        .title {
+          font-size: 14px;
+        }
+
+        .desc {
+          font-size: 11px;
+        }
+
+        .arrow {
+          font-size: 20px;
+        }
+
+        .modal {
+          padding: 0;
+        }
+
+        .modal-content {
+          width: 100%;
+          height: 100%;
+          max-width: none;
+          border-radius: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+        }
+
+        .modal img {
+          width: 85%;
+          max-width: 320px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .avatar {
+          width: 65px;
+          height: 65px;
+          font-size: 26px;
+        }
+
+        .name {
+          font-size: 20px;
+        }
+
+        .title {
+          font-size: 13px;
+        }
+
+        .desc {
+          font-size: 10px;
+        }
+      }
+
+      /* Tablet */
+
+      @media (min-width: 768px) {
+        .container {
+          max-width: 550px;
+        }
+
+        .card {
+          padding: 18px;
+        }
+
+        .title {
+          font-size: 16px;
+        }
+
+        .desc {
+          font-size: 13px;
+        }
+      }
+
+      /* Desktop */
+
+      @media (min-width: 1200px) {
+        .container {
+          max-width: 600px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="avatar">M</div>
+        <div class="name">Mritunjay Raj</div>
+        <div class="subtitle">
+          Tap your preferred payment app below to display the QR code.
+        </div>
+      </div>
+
+      <div class="card" onclick="openQR('Amazon Pay', 'qr/amazonpay.jpeg')">
+        <div class="icon" style="background: #f57c00">🛒</div>
+        <div class="info">
+          <div class="title">Amazon Pay</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('BHIM UPI', 'qr/bhim.jpeg')">
+        <div class="icon" style="background: #283593">🏛️</div>
+        <div class="info">
+          <div class="title">BHIM UPI</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('CRED', 'qr/cred.jpeg')">
+        <div class="icon" style="background: #424242">⚫</div>
+        <div class="info">
+          <div class="title">CRED</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('Google Pay', 'qr/gpay.jpeg')">
+        <div class="icon" style="background: #1565c0">🟢</div>
+        <div class="info">
+          <div class="title">Google Pay</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('PhonePe', 'qr/phonepe.jpeg')">
+        <div class="icon" style="background: #6a1b9a">🟣</div>
+        <div class="info">
+          <div class="title">PhonePe</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('Paytm', 'qr/paytm.jpeg')">
+        <div class="icon" style="background: #039be5">💙</div>
+        <div class="info">
+          <div class="title">Paytm</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('SuperMoney', 'qr/supermoney.jpeg')">
+        <div class="icon" style="background: #00897b">💎</div>
+        <div class="info">
+          <div class="title">SuperMoney</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="card" onclick="openQR('Kotak Bank', 'qr/kotakbank.jpeg')">
+        <div class="icon" style="background: #d32f2f">🏦</div>
+        <div class="info">
+          <div class="title">Kotak Bank</div>
+          <div class="desc">View QR Code</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="footer">Mritunjay Raj • Secure UPI Payment Hub</div>
+    </div>
+
+    <div class="modal" id="qrModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeQR()">×</span>
+
+        <h2 id="qrTitle">QR Code</h2>
+
+        <img id="qrImage" src="" alt="QR Code" />
+
+        <div class="scan">Scan this QR code using your preferred UPI app</div>
+      </div>
+    </div>
+
+    <script>
+      function openQR(appName, imagePath) {
+        document.getElementById("qrTitle").innerText = appName;
+        document.getElementById("qrImage").src = imagePath;
+        document.getElementById("qrModal").style.display = "flex";
+      }
+
+      function closeQR() {
+        document.getElementById("qrModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("qrModal");
+        if (event.target === modal) {
+          closeQR();
+        }
+      };
+    </script>
+  </body>
+</html>
